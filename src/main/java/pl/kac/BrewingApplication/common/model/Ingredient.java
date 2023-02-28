@@ -1,27 +1,30 @@
 package pl.kac.BrewingApplication.common.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import pl.kac.BrewingApplication.recipe.model.Recipe;
 
 import javax.persistence.*;
 
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double amount;
-    @JsonBackReference
+    @JsonBackReference(value="raw-movement")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raw_id")
     private Raw rawId;
+    @JsonBackReference(value="recipe-movement")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipeId;
 
 
 }

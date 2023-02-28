@@ -1,28 +1,26 @@
 package pl.kac.BrewingApplication.common.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import pl.kac.BrewingApplication.common.model.Ingredient;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-public class Raw {
+public class Raw implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
     private String name;
     private String unitMeasure;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "rawId", cascade = {CascadeType.ALL})
-    private List<Ingredient> ingredients;
+    @JsonManagedReference(value="raw-movement")
+    @OneToMany(mappedBy = "rawId", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    private List<Ingredient> ingredient;
 }
