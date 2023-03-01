@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.kac.BrewingApplication.common.model.Ingredient;
 import pl.kac.BrewingApplication.common.model.Raw;
 import pl.kac.BrewingApplication.ingredient.controller.dto.IngredientDto;
+import pl.kac.BrewingApplication.ingredient.controller.dto.IngredientRawDto;
 import pl.kac.BrewingApplication.ingredient.service.IngredientService;
 import pl.kac.BrewingApplication.raw.repository.RawRepository;
 import pl.kac.BrewingApplication.recipe.model.Recipe;
@@ -25,10 +26,8 @@ public class IngredientController {
     private final RawRepository rawRepository;
 
     @GetMapping()
-    public List<Ingredient> getIngredients(){return ingredientService.getIngredients();}
+    public List<IngredientRawDto> getIngredientRaw(){return ingredientService.getIngredientRaw();}
 
-    @GetMapping("/{id}")
-    public Ingredient getIngredient(@PathVariable Long id){return ingredientService.getIngredient(id);}
 
     @PostMapping("/{recipeId}/{rawId}")
     public Ingredient createIngredient(@PathVariable("recipeId") Long recipeId,
@@ -37,15 +36,15 @@ public class IngredientController {
         return ingredientService.createIngredient(mapToIngredient(ingredientDto, recipeId, rawId, EMPTY_ID));
     }
 
-    @PutMapping("/{id}/{recipeId}/{rawId}")
-    public Ingredient updateIngredient(@PathVariable("id") Long id,
-                                       @PathVariable("recipeId") Long recipeId,
+    @PutMapping("/{recipeId}/{rawId}/{id}")
+    public Ingredient updateIngredient(@PathVariable("recipeId") Long recipeId,
                                        @PathVariable("rawId") Long rawId,
+                                       @PathVariable("id") Long id,
                                        @Valid @RequestBody IngredientDto ingredientDto) {
-        return ingredientService.updateIngredient(mapToIngredient(ingredientDto, id, recipeId, rawId));
+        return ingredientService.updateIngredient(mapToIngredient(ingredientDto, recipeId, rawId, id));
     }
 
-    private Ingredient mapToIngredient(IngredientDto ingredientDto, Long id, Long recipeId, Long rawId) {
+    private Ingredient mapToIngredient(IngredientDto ingredientDto, Long recipeId, Long rawId, Long id) {
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
         Raw raw = rawRepository.findById(rawId).orElseThrow();
         return Ingredient.builder()

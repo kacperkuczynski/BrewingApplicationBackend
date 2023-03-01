@@ -1,18 +1,23 @@
 package pl.kac.BrewingApplication.recipe.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
+import pl.kac.BrewingApplication.common.model.Ingredient;
+import pl.kac.BrewingApplication.ingredient.controller.dto.IngredientRawDto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
 @Builder
-public class RecipeDto {
+@AllArgsConstructor
+@Getter
+public class RecipeIngredientDto {
     @NotNull
     @Min(0)
     private int numRec;
@@ -45,5 +50,6 @@ public class RecipeDto {
     @Max(100)
     private int timeWhirpool;
 
-
+    //Ingredient
+    private List<IngredientRawDto> ingredients;
 }

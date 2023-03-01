@@ -3,6 +3,7 @@ package pl.kac.BrewingApplication.recipe.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.kac.BrewingApplication.recipe.controller.dto.RecipeDto;
+import pl.kac.BrewingApplication.recipe.controller.dto.RecipeIngredientDto;
 import pl.kac.BrewingApplication.recipe.model.Recipe;
 import pl.kac.BrewingApplication.recipe.service.RecipeService;
 
@@ -21,6 +22,12 @@ public class RecipeController {
     @GetMapping
     public List<Recipe> getRecipes(){
         return recipeService.getRecipes();
+    }
+
+
+    @GetMapping("/Q")
+    public List<RecipeIngredientDto> getRecipeAndIngredients(){
+        return recipeService.getRecipeAndIngredients();
     }
 
     @GetMapping("/{id}")
