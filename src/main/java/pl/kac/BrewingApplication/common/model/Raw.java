@@ -21,6 +21,6 @@ public class Raw implements Serializable {
     private String name;
     private String unitMeasure;
     @JsonManagedReference(value="raw-movement")
-    @OneToMany(mappedBy = "rawId", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rawId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Ingredient> ingredient;
 }

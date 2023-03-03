@@ -1,6 +1,8 @@
 package pl.kac.BrewingApplication.recipe.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.kac.BrewingApplication.common.model.Ingredient;
 import pl.kac.BrewingApplication.ingredient.controller.dto.IngredientRawDto;
@@ -16,8 +18,8 @@ import java.util.stream.Collectors;
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
-    public List<Recipe> getRecipes() {
-        return recipeRepository.findAll();
+    public Page<Recipe> getRecipes(Pageable pageable) {
+        return recipeRepository.findAll(pageable);
     }
 
     public Recipe getRecipe(Long id) {
