@@ -2,7 +2,7 @@ package pl.kac.BrewingApplication.common.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import pl.kac.BrewingApplication.recipe.model.Recipe;
+import pl.kac.BrewingApplication.user.recipe.model.Recipe;
 
 import javax.persistence.*;
 
